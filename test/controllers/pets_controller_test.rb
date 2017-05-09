@@ -47,6 +47,12 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
       get pet_path(pets(:two).id)
       must_respond_with :success
     end
+
+    it "Responds correctly when the pet is not found" do
+    end
+
+    it "When we get a pet i has the right information" do 
+    end
   end
 
   describe "create" do

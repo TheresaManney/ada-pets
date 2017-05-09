@@ -12,7 +12,7 @@ class PetsController < ApplicationController
     if pet
       render json: pet, status: :ok
     else
-      render json: {nothing: true}, status: :not_found 
+      render json: { nothing: true }, status: :not_found 
     end
   end
 end
