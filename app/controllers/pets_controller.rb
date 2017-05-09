@@ -17,4 +17,13 @@ class PetsController < ApplicationController
       render json: { nothing: true }, status: :not_found
     end
   end
+
+  def create
+
+  end
+
+  private
+  def pet_params
+    params.require(:pet).permit(:name, :age, :human)
+  end
 end
