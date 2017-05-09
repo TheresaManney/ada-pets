@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class PetsControllerTest < ActionDispatch::IntegrationTest
+
+  KEYS = %w(age human id name)
+
   describe "index" do
     # These tests are a little verbose - yours do not need to be
     # this explicit.
@@ -32,11 +35,11 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it "returns pets with exactly the required fields" do
-      keys = %w(age human id name)
+      # keys = %w(age human id name)
       get pets_url
       body = JSON.parse(response.body)
       body.each do |pet|
-        pet.keys.sort.must_equal keys
+        pet.keys.sort.must_equal KEYS #using constant instead
       end
     end
   end
@@ -46,6 +49,10 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     it "must get a pet" do
       get pet_path(pets(:two).id)
       must_respond_with :success
+
+      body = JSON.parse(response.body)
+      body.must_be_instance_of Hash
+      body.keys.sort.must_equal KEYS
     end
 
     it "Responds correctly when the pet is not found" do
@@ -61,10 +68,14 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
       get pet_path(pets(:two).id)
       body = JSON.parse(response.body)
 
-      body["id"].must_equal pets(:two).id
-      body["name"].must_equal pets(:two).name
-      body["age"].must_equal pets(:two).age
-      body["human"].must_equal pets(:two).human
+      KEYS.each do |key|
+        body[key].must_equal pets(:two)[key]
+      end
+
+      # body["id"].must_equal pets(:two).id
+      # body["name"].must_equal pets(:two).name
+      # body["age"].must_equal pets(:two).age
+      # body["human"].must_equal pets(:two).human
     end
   end
 
