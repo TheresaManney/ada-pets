@@ -7,6 +7,12 @@ class PetsController < ApplicationController
 
   def show
     pet = Pet.find_by(id: params[:id])
-    render json: pet
+
+    # handeling for if there is not a pet id does not exist
+    if pet
+      render json: pet, status: :ok
+    else
+      render json: {nothing: true}, status: :not_found 
+    end
   end
 end
