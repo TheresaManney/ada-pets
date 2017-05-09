@@ -10,7 +10,7 @@ class PetsController < ApplicationController
 
     # handeling for if there is not a pet id does not exist
     if pet
-      render json: pet, status: :ok
+      render json: pet.as_json(only: [:id, :name, :age, :human]), status: :ok
     else
       render json: { nothing: true }, status: :not_found 
     end
