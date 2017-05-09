@@ -62,6 +62,10 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
       body["nothing"].must_equal true
 
       must_respond_with :not_found
+
+      # Another way to do this test
+      # body = JSON.parse(response.body)
+      # body.must_equal "nothing" => true
     end
 
     it "When we get a pet id has the right information" do
