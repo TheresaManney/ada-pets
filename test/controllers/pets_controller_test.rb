@@ -49,9 +49,22 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     end
 
     it "Responds correctly when the pet is not found" do
+      get pet_path( Pet.all.last.id + 1)
+
+      body = JSON.parse(response.body)
+      body["nothing"].must_equal true
+
+      must_respond_with :not_found
     end
 
-    it "When we get a pet i has the right information" do 
+    it "When we get a pet id has the right information" do
+      get pet_path(pets(:two).id)
+      body = JSON.parse(response.body)
+
+      body["id"].must_equal pets(:two).id
+      body["name"].must_equal pets(:two).name
+      body["age"].must_equal pets(:two).age
+      body["human"].must_equal pets(:two).human
     end
   end
 
