@@ -19,7 +19,13 @@ class PetsController < ApplicationController
   end
 
   def create
+    pet = Pet.new(pet_params)
 
+    if pet.save
+      render status: :ok, json: { id: pet.id }
+    else
+      
+    end
   end
 
   private
