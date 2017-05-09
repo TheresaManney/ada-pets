@@ -5,6 +5,8 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     # These tests are a little verbose - yours do not need to be
     # this explicit.
     it "is a real working route" do
+      # pets_url returns the whole url
+      # pets_path returns just /pets
       get pets_url
       must_respond_with :success
     end
@@ -16,7 +18,8 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
 
     it "returns an Array" do
       get pets_url
-
+      # response is what the action is returning
+      # JSON has a class method 'parse' which parses the body of json and makes it into a ruby hash (this is something json does under the hood)
       body = JSON.parse(response.body)
       body.must_be_kind_of Array
     end
@@ -40,7 +43,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
 
   describe "show" do
     # This bit is up to you!
-    it "can get a pet" do
+    it "must get a pet" do
       get pet_path(pets(:two).id)
       must_respond_with :success
     end
