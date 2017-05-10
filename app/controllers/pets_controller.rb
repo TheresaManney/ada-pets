@@ -9,10 +9,16 @@ class PetsController < ApplicationController
     pet = Pet.find_by(id: params[:id])
 
     # handeling for if there is not a pet id does not exist
+    # methods added... methods can be added with or without only or except, but it must be within the as_json method
     if pet
-      render json: pet.as_json(only: [:id, :name, :age, :human]), status: :ok
+      render json: pet.as_json(only: [:id, :name, :age, :human],
+        methods: :calculate_age
+        ), status: :ok
       # Could use except:
       # render json: pet.as_json(except: [:updated_at, :created_at]), status: :ok
+
+      ## 'only' - safe list
+      ## 'except' - block list
     else
       render json: { nothing: true }, status: :not_found
     end
